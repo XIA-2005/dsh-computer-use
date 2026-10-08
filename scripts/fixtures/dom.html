@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>CU 回归夹具 — DOM 层</title>
+<style>
+  body { font-family: system-ui, "Microsoft YaHei", sans-serif; margin: 16px; }
+  section { border: 1px solid #ccc; border-radius: 6px; padding: 10px; margin-bottom: 12px; }
+  h2 { font-size: 15px; margin: 0 0 8px; }
+  #scrollbox { height: 90px; overflow: auto; border: 1px dashed #999; }
+  #overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); color: #fff;
+             display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .row { margin: 4px 0; }
+  table { border-collapse: collapse; }
+  td, th { border: 1px solid #bbb; padding: 3px 8px; }
+</style>
+</head>
+<body>
+<div id="overlay">加载中…</div>
+
+<section id="s-form">
+  <h2>1. 表单</h2>
+  <div class="row"><label for="name">姓名</label> <input id="name" placeholder="请输入姓名"></div>
+  <div class="row">
+    <label for="lang">语言</label>
+    <select id="lang">
+      <option value="zh">中文</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+    </select>
+  </div>
+  <div class="row">
+    <label><input type="checkbox" id="agree"> 我同意条款</label>
+    <label><input type="checkbox" id="agree2" checked> 已勾选项</label>
+  </div>
+  <div class="row">
+    <button id="ok" type="button" onclick="hit('ok')">提交</button>
+    <button id="disabledBtn" type="button" disabled onclick="hit('disabled')">禁用按钮</button>
+    <button id="counter" type="button" onclick="bump()">计数：<span id="n">0</span></button>
+  </div>
+  <div class="row">最近点击：<b id="log">（无）</b></div>
+</section>
+
+<section id="s-nav">
+  <h2>2. 链接与标签</h2>
+  <a id="newtab" href="https://example.com/" target="_blank">在新标签打开 example.com</a><br>
+  <a id="inner" href="#s-table">跳到表格（页内锚点）</a>
+</section>
+
+<section id="s-hover">
+  <h2>3. 悬停菜单</h2>
+  <div id="hoverHost" style="display:inline-block;padding:6px 10px;border:1px solid #666;cursor:pointer">
+    悬停我
+    <div id="hoverMenu" style="display:none">菜单项 A / B</div>
+  </div>
+  <script>
+    var host = document.getElementById('hoverHost');
+    host.addEventListener('mouseover', function () { document.getElementById('hoverMenu').style.display = 'block'; });
+  </script>
+</section>
+
+<section id="s-long">
+  <h2>4. 长文本与滚动</h2>
+  <div id="scrollbox">
+    <ol id="longlist"></ol>
+  </div>
+</section>
+
+<section id="s-table">
+  <h2>5. 表格（中文）</h2>
+  <table>
+    <tr><th>指标</th><th>数值</th></tr>
+    <tr><td>准确率</td><td>95.3%</td></tr>
+    <tr><td>召回率</td><td>91.7%</td></tr>
+  </table>
+</section>
+
+<section id="s-frame">
+  <h2>6. 同源 iframe</h2>
+  <iframe id="fr" srcdoc="<!DOCTYPE html><html><body><button id='inFrame' onclick=&quot;parent.hit('iframe')&quot;>iframe 里的按钮</button></body></html>" width="260" height="60"></iframe>
+</section>
+
+<section id="s-shadow">
+  <h2>7. Shadow DOM</h2>
+  <div id="shadowHost"></div>
+  <script>
+    var sr = document.getElementById('shadowHost').attachShadow({ mode: 'open' });
+    sr.innerHTML = '<button id="shadowBtn">shadow 里的按钮</button>';
+    sr.getElementById('shadowBtn').addEventListener('click', function () { hit('shadow'); });
+  </script>
+</section>
+
+<script>
+  function hit(what) { document.getElementById('log').textContent = what + ' @' + new Date().toLocaleTimeString(); }
+  function bump() { var n = document.getElementById('n'); n.textContent = String(parseInt(n.textContent, 10) + 1); }
+  var ol = document.getElementById('longlist');
+  for (var i = 1; i <= 60; i++) { var li = document.createElement('li'); li.textContent = '列表项 ' + i; ol.appendChild(li); }
+  // 1.5 秒后遮罩消失：用于验证 browser_wait 的 textGone
+  setTimeout(function () { var o = document.getElementById('overlay'); if (o) o.remove(); }, 1500);
+</script>
+</body>
+</html>

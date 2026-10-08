@@ -1,0 +1,15 @@
+# ============================================================================
+# dsh-computer-use — DSH bundle patch
+# ============================================================================
+# 这是插件的“挂载声明”：DSH 启动时按 bundle 层叠加各插件 patch，本文件把
+# dsh-computer-use 这一行插入 Web profile 的配置树。
+#
+# 安装方式：
+#   dsh plugin --profile web add @dsh-external/dsh-computer-use
+# 本地开发安装：
+#   dsh plugin --profile web add link:<本目录绝对路径>
+# ============================================================================
+
+- insert:
+    - id: dsh-computer-use
+      name: '@dsh-external/dsh-computer-use'

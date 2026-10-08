@@ -1,0 +1,58 @@
+{
+  "name": "@dsh-external/dsh-computer-use",
+  "version": "0.1.0",
+  "description": "让 DeepSeek Harness 原生操控本机：截图给模型看、DPI 精确点击/输入、OCR 找字、UIA 控件直调，附 CDP 浏览器层（专用实例，不碰日常浏览器）。底层内联 computer-use (Windows v6.1) 工具箱。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "computer-use",
+    "automation",
+    "windows"
+  ],
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "toolkit/win",
+    "docs",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "LICENSE.upstream"
+  ],
+  "scripts": {
+    "link-deps": "node scripts/link-deps.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar-right"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4 <5",
+    "@deepseek-ai/schemastery": ">=3 <4",
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc <1",
+    "@deepseek-ai/dsh-attachment": ">=0.2.0-rc <1",
+    "@deepseek-ai/dsh-llm": ">=0.2.0-rc <1",
+    "@deepseek-ai/dsh-system-prompt": ">=0.2.0-rc <1",
+    "@deepseek-ai/dsh-agent": ">=0.2.0-rc <1"
+  },
+  "license": "MIT"
+}

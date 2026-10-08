@@ -1,0 +1,17 @@
+# 运行时状态：截图、帧文件、专用浏览器用户目录（含登录态）——不要提交、不要分享
+toolkit/state/
+
+# 依赖
+node_modules/
+
+# 构建产物 lib/ 有意入库：package.json 的入口是 ./lib/index.js，入库后克隆即可用，
+# 不必先装 tsc 再 npm run build（dsh-usage-stats 同此约定）。
+
+# 装载期异常诊断（apply 失败时自动写入）
+apply-error.txt
+
+# 编辑器/系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
