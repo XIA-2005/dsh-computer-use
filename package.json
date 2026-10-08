@@ -1,6 +1,6 @@
 {
   "name": "@dsh-external/dsh-computer-use",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "让 DeepSeek Harness 原生操控本机：截图给模型看、DPI 精确点击/输入、OCR 找字、UIA 控件直调，附 CDP 浏览器层（专用实例，不碰日常浏览器）。底层内联 computer-use (Windows v6.1) 工具箱。",
   "keywords": [
     "dsh",
@@ -52,7 +52,8 @@
     "@deepseek-ai/dsh-attachment": ">=0.2.0-rc <1",
     "@deepseek-ai/dsh-llm": ">=0.2.0-rc <1",
     "@deepseek-ai/dsh-system-prompt": ">=0.2.0-rc <1",
-    "@deepseek-ai/dsh-agent": ">=0.2.0-rc <1"
+    "@deepseek-ai/dsh-agent": ">=0.2.0-rc <1",
+    "@deepseek-ai/dsh-commands": ">=0.2.0-rc <1"
   },
   "license": "MIT"
 }

@@ -27,6 +27,7 @@ const PACKAGES = [
   'dsh-llm',
   'dsh-system-prompt',
   'dsh-agent',
+  'dsh-commands',
   'dsh-util-values',
 ]
 
@@ -43,6 +44,7 @@ const CHECKOUT_LAYOUT = {
   'dsh-llm': 'packages/llm/llm',
   'dsh-system-prompt': 'packages/core/system-prompt',
   'dsh-agent': 'packages/core/agent',
+  'dsh-commands': 'packages/core/commands',
   'dsh-util-values': 'packages/core/util-values',
 }
 
