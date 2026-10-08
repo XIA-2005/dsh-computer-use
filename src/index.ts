@@ -30,7 +30,7 @@ import type { RuntimeConfig, ToolDeps } from './tools/shared.js'
 
 export const name = 'dsh-computer-use'
 // cordis 要求 apply 里用到的每个服务都在这里声明；attachments / llm 走 ctx.get 可选获取。
-export const inject = ['tools', 'systemPrompt', 'commands']
+export const inject = ['tools', 'systemPrompt']
 
 /** 插件配置的类型。 */
 export interface Config {
@@ -214,8 +214,11 @@ function applyInner(ctx: Context, config?: Config): void {
   if (runtime.enableDesktopTools) registerDesktopTools(deps)
   if (runtime.enableBrowserTools) registerBrowserTools(deps)
 
-  // 斜杠命令（/shot /windows /click /type /browse）：输入 `/` 呼出菜单即可触发电脑操作。
-  registerSlashCommands(ctx)
+  // 斜杠命令（/shot /windows /click /type /browse）：只有宿主组合了 commands 服务才注册，
+  // 与 webServer 一样走可选依赖，保证在不带命令服务的 profile 里工具仍然可用。
+  ctx.inject(['commands'], (commandsCtx: Context) => {
+    registerSlashCommands(commandsCtx)
+  })
 
   // 右侧栏「看 Agent 浏览器」面板的数据通道：只有宿主挂了 web server 时才注册（可选依赖）。
   if (runtime.enableBrowserTools) {
